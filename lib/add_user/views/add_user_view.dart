@@ -19,6 +19,8 @@ class AddUserView extends StatelessWidget {
     final TextEditingController _emailController = TextEditingController();
     final TextEditingController _phoneController = TextEditingController();
     final formGlobalKey = GlobalKey<FormState>();
+    AdduserformBloc addUserBloc = AdduserformBloc();
+
     Map<String, dynamic>? _routeParam;
     var routeData = ModalRoute.of(context)!.settings.arguments;
     if (routeData != null) {
@@ -27,8 +29,11 @@ class AddUserView extends StatelessWidget {
       _nameController.text = userMdoel.userName;
       _emailController.text = userMdoel.userEmail;
       _phoneController.text = userMdoel.userPhoneNumber;
+      addUserBloc.add(UsernameChanged(username: _nameController.text));
+      addUserBloc.add(UseremailChanged(useremail: _emailController.text));
+      addUserBloc
+          .add(UserphonenumberChanged(userphonenumber: _phoneController.text));
     }
-    AdduserformBloc addUserBloc = AdduserformBloc();
     return Scaffold(
       appBar: AppBar(
         title: _routeParam != null && _routeParam['isEdit']
